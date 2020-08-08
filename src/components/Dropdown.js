@@ -1,23 +1,14 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-class Dropdown extends React.Component {
+class Dropdown extends Component {
   constructor(props) {
     super(props);
-    this.state = { location: '' };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  handleChange(event) {
-    this.setState({ location: event.target.value });
-  }
-
-  handleSubmit(event) {
-    alert('submitted');
-    event.preventDefault();
+    this.state = {};
   }
 
   render() {
+    const { location, handleChange, handleSubmit } = this.props;
+
     const stateNames = [
       'Alabama',
       'Alaska',
@@ -78,10 +69,10 @@ class Dropdown extends React.Component {
     ));
 
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form onSubmit={handleSubmit}>
         <label>
           Select a state:{' '}
-          <select value={this.state.location} onChange={this.handleChange}>
+          <select value={location} onChange={handleChange}>
             {dropdownOptions}
           </select>
         </label>
