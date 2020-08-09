@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import Dropdown from './components/Dropdown';
-import Chart from './components/Chart';
+import BarChart from './components/BarChart';
 import './App.css';
 
 class App extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
-      items: [],
+      covidData: [],
       isLoaded: false,
       location: '',
+      barChartData: {},
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -21,9 +22,57 @@ class App extends Component {
       .then((json) => {
         this.setState({
           isLoaded: true,
-          items: json,
+          covidData: json,
         });
       });
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (!prevState.isLoaded && this.state.isLoaded) {
+      this.setBarChartData();
+    }
+  }
+
+  sortDescending() {
+    const size = 5;
+    const covidDataCopy = this.state.covidData.map((stateData) => {
+      const positiveIncreaseArray = {
+        positiveIncrease: stateData.positiveIncrease,
+        stateName: stateData.state,
+      };
+      return positiveIncreaseArray;
+    });
+    return covidDataCopy
+      .sort((a, b) => b.positiveIncrease - a.positiveIncrease)
+      .slice(0, size);
+  }
+
+  setBarLabels() {
+    const labels = this.sortDescending().map((stateData) => {
+      return stateData.stateName;
+    });
+    return labels;
+  }
+
+  setBarData() {
+    const barData = this.sortDescending().map((stateData) => {
+      return stateData.positiveIncrease;
+    });
+    return barData;
+  }
+
+  setBarChartData() {
+    this.setState({
+      barChartData: {
+        labels: this.setBarLabels(),
+        datasets: [
+          {
+            label: 'Positive Cases',
+            data: this.setBarData(),
+          },
+        ],
+      },
+    });
   }
 
   handleChange(event) {
@@ -37,7 +86,7 @@ class App extends Component {
   }
 
   render() {
-    const { isLoaded, items, location } = this.state;
+    const { isLoaded, location, barChartData } = this.state;
 
     if (!isLoaded) {
       return <div>Loading...</div>;
@@ -50,14 +99,7 @@ class App extends Component {
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
         />
-        {/* <Chart stateName={this.items.state} /> */}
-        <ul>
-          {items.map((item) => (
-            <li key={item.state}>
-              {item.state} {item.positive}
-            </li>
-          ))}
-        </ul>
+        <BarChart barChartData={barChartData} />
       </div>
     );
   }
