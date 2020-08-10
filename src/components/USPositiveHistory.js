@@ -1,24 +1,23 @@
 import React, { PureComponent } from 'react';
-import { Bar } from 'react-chartjs-2';
+import { Line } from 'react-chartjs-2';
 
-// Top 5 states of increased positive cases
-
-class BarChart extends PureComponent {
+class USPositiveHistory extends PureComponent {
   render() {
     const {
-      barChartData,
+      lineChartData,
       displayTitle,
       displayLegend,
       legendPosition,
     } = this.props;
+
     return (
-      <div className="barChart">
-        <Bar
-          data={barChartData}
+      <div className="lineChart">
+        <Line
+          data={lineChartData}
           options={{
             title: {
               display: displayTitle,
-              text: `Top 5 States with Positive Cases on ...`,
+              text: `How the US has been handling COVID-19`,
               fontSize: 20,
             },
             legend: {
@@ -32,10 +31,10 @@ class BarChart extends PureComponent {
   }
 }
 
-BarChart.defaultProps = {
+USPositiveHistory.defaultProps = {
   displayTitle: true,
-  displayLegend: true,
+  displayLegend: false,
   legendPosition: 'bottom',
 };
 
-export default BarChart;
+export default USPositiveHistory;
