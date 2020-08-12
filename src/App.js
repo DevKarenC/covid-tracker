@@ -13,6 +13,8 @@ class App extends Component {
       usHistoricalData: [],
       isLoaded: false,
       location: '',
+      barChartData: {},
+      lineChartData: {},
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
