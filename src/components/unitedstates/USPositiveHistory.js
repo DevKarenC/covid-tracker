@@ -51,7 +51,7 @@ class USPositiveHistory extends PureComponent {
     const { displayTitle, displayLegend, legendPosition } = this.props;
 
     return (
-      <div className="lineChart">
+      <div className="lineChart chart-item">
         <Line
           data={this.buildLineChartData()}
           options={{

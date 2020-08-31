@@ -1,4 +1,120 @@
+.App {
+  text-align: center;
+}
+
+.nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.header {
+  background-color: #00326e;
+  display: flex;
+  justify-content: space-around;
+}
+
+.title {
+  color: whitesmoke;
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 3rem;
+  padding: 3.2rem 0;
+}
+
+.icons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.icon {
+  height: 32px;
+  width: auto;
+  margin: 0 6px;
+}
+
+/* Dropdown */
+
+.search {
+  padding: 2rem 0 2.5rem 0;
+}
+
+.ui.search.dropdown {
+  font-size: 1.25rem;
+}
+
+/* override semantic UI styles */
+.ui.default.dropdown:not(.button) > .text,
+.ui.dropdown:not(.button) > .default.text {
+  color: black !important;
+}
+
+.ui.dropdown .menu > .item {
+  font-size: 1.25rem !important;
+}
+
+ul {
+  padding-inline-start: 0px;
+}
+
+ul.options {
+  display: block;
+  list-style: none;
+  width: 20.9rem;
+  margin: auto;
+  position: relative;
+}
+
+ul.options li {
+  display: block;
+  background: white;
+  padding: 5px;
+  width: 100%;
+  border-radius: 2px;
+  text-align: left;
+}
+
+ul.options li:hover {
+  font-weight: bold;
+  color: #000000;
+  cursor: pointer;
+}
+
+ul.options li.option-active {
+  background: whitesmoke;
+  color: #000000;
+  font-weight: bold;
+}
+.no-options {
+  color: white;
+}
+
+.summary {
+  background-color: #fbf3e5;
+  display: flex;
+  font-family: 'Oswald', sans-serif;
+  font-size: 2rem;
+  letter-spacing: 1.5px;
+  padding: 1.5%;
+  justify-content: space-around;
+}
+
+.content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin: 14rem 3rem 3rem 3rem;
+}
+
+.chart-item {
+  display: flex;
+  flex: 0 0 45%;
+  justify-content: center;
+  margin-bottom: 3rem;
+}
+
 body {
+  height: initial;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
