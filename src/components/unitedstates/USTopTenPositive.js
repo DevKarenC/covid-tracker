@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import { Bar } from 'react-chartjs-2';
 import { convertDate } from '../../helpers/dateHelper';
 
-// Top 5 states of Daily Positive Cases
+// Top 10 states of Daily Positive Cases
 // [] Display number of positive cases above each bar
 // [] Display full state names (desktop version)
 
@@ -69,13 +69,13 @@ class USTopTenPositive extends PureComponent {
     } = this.props;
 
     return (
-      <div className="barChart">
+      <div className="barChart chart-item">
         <Bar
           data={this.buildBarChartData()}
           options={{
             title: {
               display: displayTitle,
-              text: `Top 5 States with Positive Cases on ${convertDate(
+              text: `Top 10 States with Positive Cases on ${convertDate(
                 chartDate,
               )}`,
               fontSize: 20,
