@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Dropdown from './components/Dropdown';
 import USTopTenPositive from './components/unitedstates/USTopTenPositive';
 import USPositiveHistory from './components/unitedstates/USPositiveHistory';
+import StatePieChart from './components/states/StatePieChart';
 import './App.css';
 
 class App extends Component {
@@ -11,10 +12,9 @@ class App extends Component {
       currentData: [],
       stateHistoricalData: [],
       usHistoricalData: [],
+      statePopulation: [],
       isLoaded: false,
       location: '',
-      barChartData: {},
-      lineChartData: {},
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -25,6 +25,9 @@ class App extends Component {
       fetch('https://api.covidtracking.com/v1/states/current.json'),
       fetch('https://api.covidtracking.com/v1/states/daily.json'),
       fetch('https://api.covidtracking.com/v1/us/daily.json'),
+      fetch(
+        'https://api.census.gov/data/2019/pep/population?get=POP&for=state:*&key=4a5835d028a32a11f16248acfe542c30695c2ae8',
+      ),
     ])
       .then((responses) => {
         return Promise.all(responses.map((response) => response.json()));
@@ -35,6 +38,7 @@ class App extends Component {
           currentData: json[0],
           stateHistoricalData: json[1],
           usHistoricalData: json[2],
+          statePopulation: json[3].slice(1),
         });
       });
   }
@@ -50,7 +54,14 @@ class App extends Component {
   }
 
   render() {
-    const { isLoaded, location, currentData, usHistoricalData } = this.state;
+    const {
+      isLoaded,
+      location,
+      currentData,
+      stateHistoricalData,
+      usHistoricalData,
+      statePopulation,
+    } = this.state;
 
     if (!isLoaded) {
       return <div>Loading...</div>;
@@ -68,6 +79,11 @@ class App extends Component {
           chartDate={currentData[0].date}
         />
         <USPositiveHistory usHistoricalData={usHistoricalData} />
+        <StatePieChart
+          statePopulation={statePopulation}
+          currentData={currentData}
+          location={location}
+        />
       </div>
     );
   }
