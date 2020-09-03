@@ -4,26 +4,38 @@ import { STATE_ABB } from '../constants/index';
 class SummaryStats extends Component {
   findStats(stateFullName) {
     const { currentData, usCurrentData } = this.props;
-    const stateNameIdentifier = STATE_ABB[stateFullName];
+    const stateAcronymIdentifier = STATE_ABB[stateFullName];
     if (stateFullName === 'United States') {
       const newPositives = usCurrentData[0].positiveIncrease.toLocaleString();
-      const cumulative = usCurrentData[0].positive.toLocaleString();
-      return [newPositives, cumulative];
+      const newDeath = usCurrentData[0].deathIncrease.toLocaleString();
+      const totalPositives = usCurrentData[0].positive.toLocaleString();
+      const totalDeath = usCurrentData[0].death.toLocaleString();
+      return [newPositives, newDeath, totalPositives, totalDeath];
     }
     const getTotalPositivesPerState = {};
+    const getTotalDeathPerState = {};
     const getNewPositivesPerState = {};
+    const getNewDeathPerState = {};
     currentData.forEach((stateData) => {
-      const stateName = stateData.state;
-      getTotalPositivesPerState[stateName] = stateData.positive;
-      getNewPositivesPerState[stateName] = stateData.positiveIncrease;
+      const stateAcronym = stateData.state;
+      getTotalPositivesPerState[stateAcronym] = stateData.positive;
+      getTotalDeathPerState[stateAcronym] = stateData.death;
+      getNewPositivesPerState[stateAcronym] = stateData.positiveIncrease;
+      getNewDeathPerState[stateAcronym] = stateData.deathIncrease;
     });
-    const cumulative = getTotalPositivesPerState[
-      stateNameIdentifier
-    ].toLocaleString();
     const newPositives = getNewPositivesPerState[
-      stateNameIdentifier
+      stateAcronymIdentifier
     ].toLocaleString();
-    return [newPositives, cumulative];
+    const newDeath = getNewDeathPerState[
+      stateAcronymIdentifier
+    ].toLocaleString();
+    const totalPositives = getTotalPositivesPerState[
+      stateAcronymIdentifier
+    ].toLocaleString();
+    const totalDeath = getTotalDeathPerState[
+      stateAcronymIdentifier
+    ].toLocaleString();
+    return [newPositives, newDeath, totalPositives, totalDeath];
   }
 
   render() {
@@ -31,8 +43,10 @@ class SummaryStats extends Component {
 
     return (
       <div className="summary">
-        <span> Daily New: {this.findStats(location)[0]} </span>
-        <span> Cumulative: {this.findStats(location)[1]} </span>
+        <span> New Cases: {this.findStats(location)[0]} </span>
+        <span> Death: {this.findStats(location)[1]} </span>
+        <span> Total Cases: {this.findStats(location)[2]} </span>
+        <span> Total Death: {this.findStats(location)[3]} </span>
       </div>
     );
   }
