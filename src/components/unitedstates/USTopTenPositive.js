@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
-import { Bar } from 'react-chartjs-2';
+import { HorizontalBar } from 'react-chartjs-2';
 import { convertDate } from '../../helpers/dateHelper';
+import { STATE_ABB, STATE_ABB_REVERSE } from '../../constants/index';
 
 // Top 10 states of Daily Positive Cases
 // [] Display number of positive cases above each bar
@@ -9,7 +10,8 @@ import { convertDate } from '../../helpers/dateHelper';
 class USTopTenPositive extends PureComponent {
   setBarLabels() {
     const labels = this.sortDescending().map((stateData) => {
-      return stateData.stateName;
+      const stateAcronym = stateData.stateName;
+      return STATE_ABB_REVERSE[stateAcronym];
     });
     return labels;
   }
@@ -21,6 +23,40 @@ class USTopTenPositive extends PureComponent {
     return barData;
   }
 
+  setBarColor() {
+    const { location } = this.props;
+    if (this.setBarData().length === 11) {
+      return [
+        'rgba(204, 0, 0, 1)',
+        'rgba(255, 0, 0, 1)',
+        'rgba(255, 51, 51, 1)',
+        'rgba(255, 76, 76, 1)',
+        'rgba(255, 102, 102, 1)',
+        'rgba(255, 127, 127, 1)',
+        'rgba(255, 152, 152, 1)',
+        'rgba(255, 178, 178, 1)',
+        'rgba(255, 192, 192, 1)',
+        'rgba(255, 229, 229, 1)',
+        'rgba(84, 2, 207, 1)',
+      ];
+    } else {
+      // Find index of selectedState
+      // Use splice and indexOf to replace the background color?
+      return [
+        'rgba(204, 0, 0, 1)',
+        'rgba(255, 0, 0, 1)',
+        'rgba(255, 51, 51, 1)',
+        'rgba(255, 76, 76, 1)',
+        'rgba(255, 102, 102, 1)',
+        'rgba(255, 127, 127, 1)',
+        'rgba(255, 152, 152, 1)',
+        'rgba(255, 178, 178, 1)',
+        'rgba(255, 192, 192, 1)',
+        'rgba(255, 229, 229, 1)',
+      ];
+    }
+  }
+
   buildBarChartData() {
     return {
       labels: this.setBarLabels(),
@@ -28,25 +64,14 @@ class USTopTenPositive extends PureComponent {
         {
           label: 'Positive Cases',
           data: this.setBarData(),
-          backgroundColor: [
-            'rgba(204, 0, 0, 1)',
-            'rgba(255, 0, 0, 1)',
-            'rgba(255, 51, 51, 1)',
-            'rgba(255, 76, 76, 1)',
-            'rgba(255, 102, 102, 1)',
-            'rgba(255, 127, 127, 1)',
-            'rgba(255, 152, 152, 1)',
-            'rgba(255, 178, 178, 1)',
-            'rgba(255, 192, 192, 1)',
-            'rgba(255, 229, 229, 1)',
-          ],
+          backgroundColor: this.setBarColor(),
         },
       ],
     };
   }
 
   sortDescending() {
-    const { currentData } = this.props;
+    const { currentData, location } = this.props;
     const size = 10;
     const currentDataCopy = currentData.map((stateData) => {
       const positiveIncreaseArray = {
@@ -55,9 +80,25 @@ class USTopTenPositive extends PureComponent {
       };
       return positiveIncreaseArray;
     });
-    return currentDataCopy
-      .sort((a, b) => b.positiveIncrease - a.positiveIncrease)
-      .slice(0, size);
+    const statesSortedByPositives = currentDataCopy.sort(
+      (a, b) => b.positiveIncrease - a.positiveIncrease,
+    );
+    const topTenPositiveStates = statesSortedByPositives.slice(0, size);
+    const selectedState = statesSortedByPositives.find(
+      (state) => state.stateName === STATE_ABB[location],
+    );
+    if (location !== 'United States') {
+      // Determine if the selectedState is in the top 10
+      const isSelectedStateInTopTen = topTenPositiveStates.find(
+        (state) => state.stateName === STATE_ABB[location],
+      );
+      if (isSelectedStateInTopTen) {
+        return topTenPositiveStates;
+      }
+      topTenPositiveStates.push(selectedState);
+      return topTenPositiveStates;
+    }
+    return topTenPositiveStates;
   }
 
   render() {
@@ -70,7 +111,7 @@ class USTopTenPositive extends PureComponent {
 
     return (
       <div className="barChart chart-item">
-        <Bar
+        <HorizontalBar
           data={this.buildBarChartData()}
           options={{
             title: {

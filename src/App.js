@@ -3,6 +3,7 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React, { Component } from 'react';
 import _ from 'lodash';
+import Loading from './components/Loading';
 import githubLogo from './images/GitHub-Mark-Light-120px-plus.png';
 import LinkedinLogo from './images/LI-In-Bug.png';
 import Autocomplete from './components/Autocomplete';
@@ -84,7 +85,7 @@ class App extends Component {
     }));
 
     if (!isLoaded) {
-      return <div>Loading...</div>;
+      return <Loading />;
     }
 
     return (
@@ -119,6 +120,7 @@ class App extends Component {
           <USTopTenPositive
             currentData={currentData}
             chartDate={currentData[0].date}
+            location={location}
           />
           <USPositiveHistory usHistoricalData={usHistoricalData} />
           <StatePieChart
