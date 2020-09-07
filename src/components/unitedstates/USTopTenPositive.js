@@ -25,36 +25,30 @@ class USTopTenPositive extends PureComponent {
 
   setBarColor() {
     const { location } = this.props;
+    const barColors = [
+      'rgba(204, 0, 0, 1)',
+      'rgba(255, 0, 0, 1)',
+      'rgba(255, 51, 51, 1)',
+      'rgba(255, 76, 76, 1)',
+      'rgba(255, 102, 102, 1)',
+      'rgba(255, 127, 127, 1)',
+      'rgba(255, 152, 152, 1)',
+      'rgba(255, 178, 178, 1)',
+      'rgba(255, 192, 192, 1)',
+      'rgba(255, 229, 229, 1)',
+      'rgba(84, 2, 207, 1)',
+    ];
     if (this.setBarData().length === 11) {
-      return [
-        'rgba(204, 0, 0, 1)',
-        'rgba(255, 0, 0, 1)',
-        'rgba(255, 51, 51, 1)',
-        'rgba(255, 76, 76, 1)',
-        'rgba(255, 102, 102, 1)',
-        'rgba(255, 127, 127, 1)',
-        'rgba(255, 152, 152, 1)',
-        'rgba(255, 178, 178, 1)',
-        'rgba(255, 192, 192, 1)',
-        'rgba(255, 229, 229, 1)',
-        'rgba(84, 2, 207, 1)',
-      ];
-    } else {
-      // Find index of selectedState
-      // Use splice and indexOf to replace the background color?
-      return [
-        'rgba(204, 0, 0, 1)',
-        'rgba(255, 0, 0, 1)',
-        'rgba(255, 51, 51, 1)',
-        'rgba(255, 76, 76, 1)',
-        'rgba(255, 102, 102, 1)',
-        'rgba(255, 127, 127, 1)',
-        'rgba(255, 152, 152, 1)',
-        'rgba(255, 178, 178, 1)',
-        'rgba(255, 192, 192, 1)',
-        'rgba(255, 229, 229, 1)',
-      ];
+      return barColors;
     }
+    if (location !== 'United States') {
+      const topTenPositiveStates = this.sortDescending();
+      const selectedStateIndex = topTenPositiveStates.findIndex(
+        (state) => state.stateName === STATE_ABB[location],
+      );
+      barColors.splice(selectedStateIndex, 1, 'rgba(108, 27, 152, 1)');
+    }
+    return barColors;
   }
 
   buildBarChartData() {
