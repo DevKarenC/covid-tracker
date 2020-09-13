@@ -97,8 +97,14 @@ class StatePieChart extends PureComponent {
             datasets: [
               {
                 data: this.findInfectedAndNotInfected(location),
-                backgroundColor: ['#ddba95', '#006ba1'],
-                hoverBackgroundColor: ['#c6a786', '#006090'],
+                backgroundColor: [
+                  'rgba(152, 97, 255, 0.69)',
+                  'rgba(208, 255, 97, 0.69)',
+                ],
+                hoverBackgroundColor: [
+                  'rgba(152, 97, 255, 1)',
+                  'rgba(208, 255, 97, 1)',
+                ],
               },
             ],
           }}
@@ -107,8 +113,8 @@ class StatePieChart extends PureComponent {
               center: {
                 text: `${this.findInfectedPercentage(location)}%`,
                 color: '#000000',
-                fontStyle: 'Arial',
-                sidePadding: 20,
+                fontStyle: 'Source Sans Pro',
+                sidePadding: 40,
               },
             },
             title: {
