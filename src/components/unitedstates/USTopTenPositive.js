@@ -1,11 +1,11 @@
 import React, { PureComponent } from 'react';
-import { HorizontalBar } from 'react-chartjs-2';
+import { HorizontalBar, defaults } from 'react-chartjs-2';
 import { convertDate } from '../../helpers/dateHelper';
 import { STATE_ABB, STATE_ABB_REVERSE } from '../../constants/index';
 
 // Top 10 states of Daily Positive Cases
 // [] Display number of positive cases above each bar
-// [] Display full state names (desktop version)
+// [x] Display full state names (desktop version)
 
 class USTopTenPositive extends PureComponent {
   setBarLabels() {
@@ -59,6 +59,9 @@ class USTopTenPositive extends PureComponent {
           label: 'Positive Cases',
           data: this.setBarData(),
           backgroundColor: this.setBarColor(),
+          barThickness: 25,
+          categoryPercentage: 0.1,
+          fontColor: 'blue',
         },
       ],
     };
@@ -113,11 +116,27 @@ class USTopTenPositive extends PureComponent {
               text: `Top 10 States with Positive Cases on ${convertDate(
                 chartDate,
               )}`,
-              fontSize: 20,
+              fontSize: 22,
             },
             legend: {
               display: displayLegend,
               position: legendPosition,
+            },
+            scales: {
+              xAxes: [
+                {
+                  ticks: {
+                    fontSize: 20,
+                  },
+                },
+              ],
+              yAxes: [
+                {
+                  ticks: {
+                    fontSize: 16,
+                  },
+                },
+              ],
             },
           }}
         />
