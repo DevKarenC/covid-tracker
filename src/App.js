@@ -2,6 +2,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React, { Component } from 'react';
+import { defaults } from 'react-chartjs-2';
 import _ from 'lodash';
 import Loading from './components/Loading';
 import githubLogo from './images/GitHub-Mark-Light-120px-plus.png';
@@ -18,6 +19,9 @@ import './index.css';
 // Revenue by industry, planes leaving in and out of the US (quantity)
 // Unemployment rates
 // Tech industry pre and post corona (probably doing better after corona?)
+
+defaults.global.defaultFontColor = 'black';
+defaults.global.defaultFontFamily = 'Source Sans Pro';
 
 class App extends Component {
   constructor() {
@@ -122,7 +126,11 @@ class App extends Component {
             chartDate={currentData[0].date}
             location={location}
           />
-          <USPositiveHistory usHistoricalData={usHistoricalData} />
+          <USPositiveHistory
+            usHistoricalData={usHistoricalData}
+            stateHistoricalData={stateHistoricalData}
+            location={location}
+          />
           <StatePieChart
             statePopulation={statePopulation}
             currentData={currentData}
