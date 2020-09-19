@@ -49,8 +49,6 @@ app.get('/api', async (request, response) => {
     usCurrentData,
     censusData,
   ];
-  // console.log(apiData);
-  // console.log(response.json(apiData));
   response.json(apiData);
 });
 
