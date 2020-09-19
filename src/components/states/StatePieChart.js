@@ -109,6 +109,7 @@ class StatePieChart extends PureComponent {
             ],
           }}
           options={{
+            maintainAspectRatio: false,
             elements: {
               center: {
                 text: `${this.findInfectedPercentage(location)}%`,

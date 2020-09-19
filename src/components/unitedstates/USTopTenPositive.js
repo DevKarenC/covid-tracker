@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { HorizontalBar, defaults } from 'react-chartjs-2';
+import { HorizontalBar } from 'react-chartjs-2';
 import { convertDate } from '../../helpers/dateHelper';
 import { STATE_ABB, STATE_ABB_REVERSE } from '../../constants/index';
 
@@ -111,6 +111,7 @@ class USTopTenPositive extends PureComponent {
         <HorizontalBar
           data={this.buildBarChartData()}
           options={{
+            maintainAspectRatio: false,
             title: {
               display: displayTitle,
               text: `Top 10 States with Positive Cases on ${convertDate(

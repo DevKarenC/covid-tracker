@@ -38,26 +38,21 @@ class App extends Component {
   }
 
   componentDidMount() {
-    Promise.all([
-      fetch('https://api.covidtracking.com/v1/states/current.json'),
-      fetch('https://api.covidtracking.com/v1/states/daily.json'),
-      fetch('https://api.covidtracking.com/v1/us/daily.json'),
-      fetch('https://api.covidtracking.com/v1/us/current.json'),
-      fetch(
-        'https://api.census.gov/data/2019/pep/population?get=POP&for=state:*&key=4a5835d028a32a11f16248acfe542c30695c2ae8',
-      ),
-    ])
-      .then((responses) => {
-        return Promise.all(responses.map((response) => response.json()));
+    fetch('/api')
+      // fetch('http://localhost:8080/api')
+      .then((response) => {
+        return new Promise((resolve) => {
+          resolve(response.json());
+        });
       })
-      .then((json) => {
+      .then((data) => {
         this.setState({
           isLoaded: true,
-          currentData: json[0],
-          stateHistoricalData: json[1],
-          usHistoricalData: json[2],
-          usCurrentData: json[3],
-          statePopulation: json[4].slice(1),
+          currentData: data[0],
+          stateHistoricalData: data[1],
+          usHistoricalData: data[2],
+          usCurrentData: data[3],
+          statePopulation: data[4].slice(1),
         });
       });
   }
@@ -97,21 +92,27 @@ class App extends Component {
         <div className="nav">
           <header className="header">
             <div className="title">US Covid-19 Tracker</div>
-            <Autocomplete
-              location={location}
-              onChangeDropdown={this.onChangeDropdown}
-              optionList={optionList}
-            />
-            <div className="icons">
-              <a href="https://github.com/DevKarenC" target="_blank">
-                <img className="icon" src={githubLogo} alt="Github Logo" />
-              </a>
-              <a
-                href="https://www.linkedin.com/in/seungahchoi/"
-                target="_blank"
-              >
-                <img className="icon" src={LinkedinLogo} alt="Linkedin Logo" />
-              </a>
+            <div className="search-icon">
+              <Autocomplete
+                location={location}
+                onChangeDropdown={this.onChangeDropdown}
+                optionList={optionList}
+              />
+              <div className="icons">
+                <a href="https://github.com/DevKarenC" target="_blank">
+                  <img className="icon" src={githubLogo} alt="Github Logo" />
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/seungahchoi/"
+                  target="_blank"
+                >
+                  <img
+                    className="icon"
+                    src={LinkedinLogo}
+                    alt="Linkedin Logo"
+                  />
+                </a>
+              </div>
             </div>
           </header>
           <SummaryStats
