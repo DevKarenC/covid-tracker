@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react';
 import { Line } from 'react-chartjs-2';
-import { convertLineDate } from '../../helpers/lineDateHelper';
 import { STATE_ABB } from '../../constants/index';
 
 class USPositiveHistory extends PureComponent {
@@ -80,6 +79,7 @@ class USPositiveHistory extends PureComponent {
         <Line
           data={this.buildLineChartData()}
           options={{
+            maintainAspectRatio: false,
             title: {
               display: displayTitle,
               text: `Covid-19 Positive Case Daily Growth`,
@@ -89,15 +89,6 @@ class USPositiveHistory extends PureComponent {
               display: displayLegend,
               position: legendPosition,
             },
-            // scales: {
-            //   xAxes: [
-            //     {
-            //       ticks: {
-            //         display: false,
-            //       },
-            //     },
-            //   ],
-            // },
           }}
         />
       </div>
