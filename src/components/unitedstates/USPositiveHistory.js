@@ -89,6 +89,15 @@ class USPositiveHistory extends PureComponent {
               display: displayLegend,
               position: legendPosition,
             },
+            // scales: {
+            //   xAxes: [
+            //     {
+            //       ticks: {
+            //         display: false,
+            //       },
+            //     },
+            //   ],
+            // },
           }}
         />
       </div>
