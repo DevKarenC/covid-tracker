@@ -2,10 +2,9 @@ const express = require('express'); // npm packages
 const fetch = require('node-fetch'); // fetch package
 const favicon = require('express-favicon');
 const path = require('path');
+
 const port = process.env.PORT || 8080;
 require('dotenv').config();
-
-console.log(process.env);
 
 const app = express(); // create express server
 
@@ -56,4 +55,4 @@ app.get('/*', function (request, response) {
   response.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
-app.listen(port); // command to run the server
+app.listen(port);
