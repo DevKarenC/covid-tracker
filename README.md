@@ -1,17 +1,20 @@
-## COVID-19 Tracker
+# US COVID-19 Tracker
 
-<br>
+**This US Covid-19 tracker...**
 
-:computer: Check out the project here: **<https://covid-tracker-web.herokuapp.com/>**
+- [x] Updates daily (Note: The Covid Tracking Project API is no longer collecting new data as of March 7, 2021, so this tracker will show data up until that date.)
+- [x] Shows COVID-19 summary data and 3 different types of chart: bar, line, pie for all 50 states and US as a whole
+- [x] Uses the API from the [Covid Tracking Project](https://covidtracking.com/data/api) and [US Census Bureau](https://www.census.gov/data/developers/data-sets/popest-popproj/popest.html) and [Chart.js](https://www.chartjs.org/) library for HTML5 based JavaScript charts
+- [x] Uses React framework for front-end and Node.js for back-end
 
-<br>
+Check out the project [here](https://covid-tracker-web.herokuapp.com/)!
 
-:tada: Thanks to **[The COVID Tracking Project](https://covidtracking.com/data/api)** and the **[United States Census Bureau](https://www.census.gov/data/developers/data-sets/popest-popproj/popest.html)** for providing the APIs!
+## Demo
+### Bar Graph: Top 10 States with Covid-19 Positive Cases
+<img src="src/images/covid-tracker-demo-bar.gif" alt="Demo Bar Graph Usage" width="800px">
 
-<br>
+### Line Graph: Number of Covid-19 Positive Cases since inception for each state
+<img src="src/images/covid-tracker-demo-line.gif" alt="Demo Line Graph Usage" width="800px">
 
-:information_desk_person: **This tracker...**
-
-- Updates daily :calendar:
-- Focuses on the US data :us:
-- Shows COVID-19 summary data and 3 different types of chart: bar, line, pie :eyes:
+### Circle Graph: Percentage of Cumulative Covid-19 Positive Cases for each state
+<img src="src/images/covid-tracker-demo-circle.gif" alt="Demo Circle Graph Usage" width="800px">
